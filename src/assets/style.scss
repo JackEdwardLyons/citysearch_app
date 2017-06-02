@@ -1,0 +1,142 @@
+/*
+ * Name: City Search App 
+ * Date: 01/06/2017
+ * Author: Jack Lyons
+ */
+
+
+/* 
+ * Base Styles 
+ *
+ */
+html {
+  font-size: 1em;
+}
+
+body {
+  background: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url("https://68.media.tumblr.com/acce113b7f6f091e06f6ae028a577737/tumblr_nu4hfcv81t1uwmdpzo1_1280.jpg") no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-size: cover;
+  font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
+  font-weight: 400;
+  line-height: 1.45;
+  color: #333;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 
+ * Typography 
+ *
+ */
+p {
+  margin: 1.3em;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 1.414em 0 0.5em;
+  font-weight: inherit;
+  line-height: 1.2;
+}
+
+h1 {
+  margin-top: 0;
+  font-size: 3.998em;
+}
+
+h2 {
+  font-size: 2.827em;
+}
+
+h3 {
+  font-size: 1.999em;
+}
+
+h4 {
+  font-size: 1.414em;
+}
+
+small,
+.font_small {
+  font-size: 0.707em;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+/* 
+ * Formatting
+ *
+ */
+.site-content {
+  flex: 1;
+}
+
+.is-centered {
+  margin: 0 auto;
+}
+
+.footer {
+  padding: 1rem;
+  width: 100%;
+}
+
+[v-cloak] {
+  display: none;
+}
+
+/* Layouts */
+/* Modules */
+/* 
+ * Search Results
+ *
+ */
+.searchbar {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.results, .results--filter {
+  background: #fff;
+  border: 1px solid lightgrey;
+  margin: 1em auto;
+  padding: 1em;
+  width: 75%;
+}
+
+.city-search {
+  width: 40%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.city--icon {
+  max-width: 150px;
+  padding: 1em;
+}
+
+.filter-field {
+  text-align: left;
+}
+
+.filter-label {
+  display: block;
+  margin: .5em 0;
+}
+
+.modal-card-body--load-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}
+
+.modal-card-title {
+  width: 80%;
+}
