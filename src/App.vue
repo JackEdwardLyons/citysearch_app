@@ -181,6 +181,9 @@ import Modal from './components/Modal.vue'
 
 export default {
   name: 'app',
+  components: {
+    Modal
+  },
   data() {
     return {
       input: '',
@@ -192,9 +195,6 @@ export default {
       show_mobile_menu: false,
       modal_type: ''
     }
-  },
-  components: {
-    Modal
   },
   methods: {
     getCities() {

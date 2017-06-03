@@ -3,7 +3,7 @@
   <div class="modal is-active">
     <div class="modal-background" @click="closeModal"></div>
     <div class="modal-card" :class="{small: type == 'login'}">
-      
+  
       <header class="modal-card-head">
         <p class="modal-card-title"
             v-if="type == 'map'">View {{ city }} On Map</p>
@@ -11,53 +11,22 @@
             v-if="type == 'login'">Login</p>
         <p class="modal-card-title"
             v-if="type == 'restaurants'">View Top Restaurants in {{ city }}</p>
-
         <button class="delete" @click="closeModal"></button>
       </header>
       
       <section class="modal-card-body">
         <!-- Map -->  
         <div class="map">
-          
-          <iframe id="iframe"
-                  width="100%"
-                  height="400px"
-                  :src="map_url"
-                  frameborder="0"               
-                  v-show="loaded && type == 'map'">
-          </iframe>
-
-          <div class="modal-card-body--load-wrap has-text-centered"
-                v-if="!loaded && type == 'map'">
-            <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
-          </div>
-          
+          <GoogleMap :city="city" :mapUrl="mapUrl"
+                     :type="type" :loaded="loaded">
+          </GoogleMap>
         </div>
         <!-- end Map -->
 
         <!-- Login -->
         <div class="columns" v-if="type == 'login'">          
-          
-          <div class="column is-12">
-            <div class="field">
-              <p class="control">
-                <input class="input" 
-                        type="text" 
-                        placeholder="Email"
-                        v-model="user.email">
-              </p>  
-            </div>
-            <div class="field">
-              <p class="control">
-                <input class="input" 
-                        type="password" 
-                        placeholder="Password"
-                        v-model="user.password">  
-              </p>                
-            </div>              
-          </div>            
+          <Login></Login>         
         </div><!-- End Login -->
-
       </section>
 
       <footer class="modal-card-foot" v-if="type == 'login'">
@@ -69,13 +38,16 @@
 </template>
 
 <script>
+import Login     from './Login'
+import GoogleMap from './GoogleMap'
+
 export default {
-  template: '#modal',
   props: ['city', 'type'],
+  components: { Login, GoogleMap },
   data() {
     return {
       loaded: false,
-      map_url: '',
+      mapUrl: '',
       cafes: [],
       thingsToDo: [],
       restaurants: [],
@@ -106,7 +78,7 @@ export default {
             // .onload will only work with es5 as of right now, so we need this
             self = this;
     
-      this.map_url = url;
+      this.mapUrl = url;
       
       iframe.onload = function() {
         self.loaded = true;
