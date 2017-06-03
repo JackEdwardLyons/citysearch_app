@@ -25,7 +25,7 @@
 
 <script>
 export default {
-  props: [ 'show_modal' ],
+  props: [ 'show_modal', 'show_mobile_menu' ],
   data() {
     return {
 
