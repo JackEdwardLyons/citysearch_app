@@ -93,61 +93,17 @@
         </div>
       </div><!-- end Heading and Search -->
       
-      <!-- Displayed Cities -->
-      <section>
-        <article class="results" v-for="obj in results">
-            <!-- City stats -->
-            <div class="columns" >
-              <div class="column">
-                <div class="city--stats">
-                  <p><strong>City: </strong> {{ obj.city }} </p>
-                  <p><strong>State: </strong> {{ obj.state }} </p>
-                </div>
-              </div>
+      <!-- City List -->
+      <CityList :results="results" :city="city" 
+                :input="input" @showMap="showMap">
+      </CityList>
 
-              <div class="column">
-                <div class="city--stats">
-                  <p><strong>Rank: </strong> {{ obj.rank }} </p>
-                  <p><strong>Population: </strong> {{ formattedNumber( obj.population ) }} </p>
-                </div>
-              </div>
-            </div> <!-- end City stats -->
-
-            <div class="columns">
-              <!-- Things to do -->
-              <div class="column">
-                <h4>Top 10 Things to do in {{ obj.city }}</h4>
-                <img class="city--icon " src="./assets/Wallet.png">
-              </div>
-
-              <div class="column">
-                <h4>Top 10 Restaurants in {{ obj.city }}</h4>
-                <img class="city--icon " src="./assets/bowl-food-icon.png">
-              </div>
-
-              <div class="column">
-                <h4>Top 10 Bars in {{ obj.city }}</h4>
-                <a @click="showRestaurants(obj.city)">
-                  <img class="city--icon " src="./assets/beer.png">
-                </a>
-              </div>
-
-              <div class="column">
-                <h4>Find {{ obj.city }} on a map</h4>
-                <a @click="showMap(obj.city)">
-                   <img class="city--icon " src="./assets/map-512.png">
-                </a>
-              </div>
-            </div><!-- end Things to do -->
-          </article>
-        </section><!-- end Displayed Cities -->
-      
-        <!-- Modal -->
-        <Modal v-if="show_modal" 
-                :city="city"
-                :type="modal_type"
-                @close_modal="closeModal">
-        </Modal> 
+      <!-- Modal -->
+      <Modal v-if="show_modal" 
+              :city="city"
+              :type="modal_type"
+              @close_modal="closeModal">
+      </Modal> 
       
      </main><!-- end Main Container  -->
    </div><!-- end Vue instance -->
@@ -159,14 +115,16 @@ import _ from 'lodash'
 import axios from 'axios'
 
 // Components
-import Navbar from './components/Navbar'
-import Modal from './components/Modal.vue'
+import Navbar   from './components/Navbar'
+import Modal    from './components/Modal.vue'
+import CityList from './components/CityList'
 
 export default {
   name: 'app',
   components: {
     Modal, 
-    Navbar
+    Navbar, 
+    CityList
   },
   data() {
     return {
@@ -221,10 +179,6 @@ export default {
     
     closeModal() {
       this.show_modal = false;
-    },
-    
-    formattedNumber(x) {
-      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ', ');
     }
   },
   
