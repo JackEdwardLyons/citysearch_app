@@ -12,7 +12,8 @@
       <!-- Heading and Search -->
       <div class="columns">
         <div class="column has-text-centered">
-          <div class="searchbar">3
+          <h2 class="bold">Search a City</h2>
+          <div class="searchbar">
               <SearchBar     @filteredCities="filteredCities"></SearchBar>
               <ResultsFilter :searchFilters="searchFilters"></ResultsFilter>
           </div>
@@ -77,9 +78,8 @@ export default {
       });
     },
     filteredCities(input) {
-      
       console.log('filter from child', input);
-      
+
       this.results = [];
       this.input = input;
 
@@ -92,29 +92,24 @@ export default {
         }, 500);
       }
     },
-    
     showMap(city) {
       this.city = city;
       this.modal_type = 'map';
       this.show_modal = true;
     },
-
     showRestaurants(city) {
       this.city = city;
       this.modal_type = 'restaurants';
       this.show_modal = true;
     },
-    
     login() {
       this.modal_type = 'login';
       this.show_modal = true;
     },
-    
     closeModal() {
       this.show_modal = false;
     }
   },
-  
   created() {
     this.getCities();
   }
