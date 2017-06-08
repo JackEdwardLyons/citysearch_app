@@ -48,8 +48,9 @@
     </section>
 </template>
 <script> 
+
 export default {
-	props: ['results', 'input', 'city'],
+	props: [ 'results', 'input', 'city' ],
 	methods: {
 		showMap(city) {
 			this.$emit('showMap', city);

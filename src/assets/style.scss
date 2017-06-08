@@ -14,10 +14,10 @@ html {
 }
 
 body {
-  background: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url("https://68.media.tumblr.com/acce113b7f6f091e06f6ae028a577737/tumblr_nu4hfcv81t1uwmdpzo1_1280.jpg") no-repeat;
+  background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.1)), url("../assets/city-2-background.jpg") no-repeat;
   background-size: cover;
   background-attachment: fixed;
-  background-size: cover;
+  background-position: center;
   font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
   font-weight: 400;
   line-height: 1.45;
@@ -92,7 +92,6 @@ small,
 }
 
 /* Layouts */
-/* Modules */
 /* 
  * Search Results
  *
@@ -139,4 +138,20 @@ small,
 
 .modal-card-title {
   width: 80%;
+}
+
+/* Media Queries */
+@media screen and (max-width: 500px) {
+  .city-search {
+    display: block;
+    margin: .5em auto;
+    width: 100%;
+  }
+  
+  .city-search--btn, 
+  .searchbar .is-success {
+    width: 100%;
+    margin: .5em auto;
+  }
+
 }

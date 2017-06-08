@@ -4,92 +4,18 @@
   
     <Navbar :show_mobile_menu="show_mobile_menu" 
             :show_modal="show_modal"
-            @login="login"></Navbar>
+            @login="login">
+    </Navbar>
 
     <!-- Main Container  -->
     <main>
       <!-- Heading and Search -->
       <div class="columns">
         <div class="column has-text-centered">
-
-          <h2 class="bold">Search a City</h2>
-
-          <!-- SEARCHBAR -->
-          <div class="searchbar">
-              <input class="input control city-search" type="text" 
-                placeholder="City Name"
-                v-model="input"
-                @keyup="filterCities()">
-              <!-- Search -->
-              <a class="button is-primary control city-search--btn" 
-                 @click="filterCities()">Search
-              </a>
-              <!-- Filter -->
-              <a class="button is-success" @click="searchFilters = !searchFilters">
-                <i class="fa fa-sliders" aria-hidden="true"></i>
-              </a>
-
-              <div class="results--filter columns" v-show="searchFilters">
-                <div class="column">
-                  <div class="filter-field">
-                    <div class="control">
-                        <p class="bold">Search by</p>
-                        <label class="filter-label">
-                          <input class="filter-label--checkbox" type="radio" name="city-state" /> 
-                          City
-                        </label>
-                        <label class="filter-label">
-                          <input class="filter-label--checkbox" type="radio" name="city-state" /> 
-                          State
-                        </label>
-                    </div>
-                  </div>
-                </div>
-                <div class="column">
-                  <div class="filter-field">
-                    <div class="control">
-                      <p class="bold">City Population</p>
-                      <label class="filter-label">
-                        <input class="filter-label--checkbox" type="checkbox" /> 
-                        &lt; 50,000
-                      </label>
-                      <label class="filter-label">
-                        <input class="filter-label--checkbox" type="checkbox" /> 
-                        &gt; 50,000 &amp; &lt; 100,000
-                      </label>
-                      <label class="filter-label">
-                        <input class="filter-label--checkbox" type="checkbox" /> 
-                        &gt; 100,000 &amp; &lt; 500,000
-                      </label>
-                      <label class="filter-label">
-                        <input class="filter-label--checkbox" type="checkbox" /> 
-                        &gt; 500,000 &amp; &lt; 1,000,000
-                      </label>
-                      <label class="filter-label">
-                        <input class="filter-label--checkbox" type="checkbox" /> 
-                        &nbsp;&nbsp; 1,000,000+
-                      </label>
-                    </div>
-                  </div>
-                </div>
-                <div class="column">
-                  <div class="filter-field">
-                    <div class="control">
-                      <p class="bold">Rank</p>
-                      <label class="filter-label">
-                        <input class="filter-label--checkbox" type="radio" name="city-rank" /> 
-                        Ascending
-                      </label>
-                      <label class="filter-label">
-                        <input class="filter-label--checkbox" type="radio" name="city-rank" /> 
-                        Descending
-                      </label>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-          </div><!-- end .searchbar -->
+          <div class="searchbar">3
+              <SearchBar     @filteredCities="filteredCities"></SearchBar>
+              <ResultsFilter :searchFilters="searchFilters"></ResultsFilter>
+          </div>
         </div>
       </div><!-- end Heading and Search -->
       
@@ -115,16 +41,20 @@ import _ from 'lodash'
 import axios from 'axios'
 
 // Components
-import Navbar   from './components/Navbar'
-import Modal    from './components/Modal.vue'
-import CityList from './components/CityList'
+import Navbar        from './components/Navbar'
+import ResultsFilter from './components/ResultsFilter'
+import SearchBar     from './components/SearchBar'
+import Modal         from './components/Modal.vue'
+import CityList      from './components/CityList'
 
 export default {
   name: 'app',
   components: {
     Modal, 
     Navbar, 
-    CityList
+    CityList,
+    ResultsFilter,
+    SearchBar
   },
   data() {
     return {
@@ -146,10 +76,13 @@ export default {
         this.cities = res.data;
       });
     },
-    
-    filterCities() {
-      this.results = [];
+    filteredCities(input) {
       
+      console.log('filter from child', input);
+      
+      this.results = [];
+      this.input = input;
+
       if ( this.input.length > 2 ) {
         clearTimeout(window.delay);
         window.delay = setTimeout(() => {
