@@ -45,7 +45,7 @@
     </article>
     
     <div id="results-bottom" class="is-centered">
-      <a class="button is-primary" @click="addResults" v-show="cityItems.length">SHOW MORE</a>
+      <a class="button is-primary" @click="addResults" v-show="showMore()">SHOW MORE</a>
     </div>
 
   </section>
@@ -67,7 +67,10 @@ export default {
 			this.city = city;
 			this.modal_type = 'restaurants';
 			this.show_modal = true;
-		}
+		},
+    showMore() {
+      return this.cityItems.length < this.results.length && this.cityItems.length;
+    }
   },
   filters: {
     formattedNumber(x) {

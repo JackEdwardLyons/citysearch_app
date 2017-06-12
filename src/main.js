@@ -6,24 +6,23 @@ import scrollMonitor from 'scrollMonitor'
 import App           from './App'
 
 Vue.config.productionTip = false
+const bus = new Vue();
+
+Object.defineProperty(Vue.prototype, '$bus', {
+  get() { return this.$root.bus }
+});
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
-  template: '<App :appendItems="appendItems"></App>',
+  template: '<App :bus="bus"></App>',
   components: { App },
-  data: {
-    
-  },
-  methods: {
-    appendItems() {
-      console.log('append items');
-    }
-  },
+  data: { bus },
+  methods: {},
   mounted() {
     const elem  = document.getElementById('results-bottom');
     let watcher = scrollMonitor.create(elem);
-    watcher.enterViewport(() => this.appendItems());
+    // watcher.enterViewport();
   }
 });
 

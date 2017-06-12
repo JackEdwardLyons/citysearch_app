@@ -88,11 +88,11 @@ export default {
       this.showSearchFilter = !this.showSearchFilter;
     },
     addResults() {
-      this.cityItems = [];
       if (this.cityItems.length < this.results.length) {
         // append additional results 5 at a time
         const append   = this.results.slice(this.cityItems.length, this.cityItems.length + 5);
         this.cityItems = this.cityItems.concat(append);
+        console.log(this.cityItems, this.results);
         return this.cityItems;
       }
     },
@@ -121,4 +121,3 @@ export default {
 </script>
 
 <style src="./assets/style.scss"></style>
-</style>
