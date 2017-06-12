@@ -1,6 +1,6 @@
 <template>
   <section>
-    <article class="results" v-for="obj in results">
+    <article class="results" >
       <!-- City stats -->
       <div class="columns">
         <div class="column">
@@ -52,6 +52,16 @@
 <script>
 
 export default {
-  props: [ 'results' ]
+  props: [ 'results' ],
+  data() {
+    return {
+
+    }
+  },
+  filters: {
+    formattedNumber(x) {
+      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ', ');
+    }
+  }
 }
 </script>

@@ -62,6 +62,10 @@
 
 <script>
 export default {
-  props: [ 'searchFilters' ]
+  props: [ 'searchFilters' ],
+  data() {
+    return {
+    }
+  }
 }
 </script>
