@@ -5,6 +5,7 @@ import axios         from 'axios'
 import scrollMonitor from 'scrollMonitor'
 import App           from './App'
 
+ 
 Vue.config.productionTip = false
 const bus = new Vue();
 

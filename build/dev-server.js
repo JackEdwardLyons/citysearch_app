@@ -12,6 +12,25 @@ var webpack = require('webpack')
 var proxyMiddleware = require('http-proxy-middleware')
 var webpackConfig = require('./webpack.dev.conf')
 
+
+var yelp = require('yelp-fusion'); 
+// Yelp Fusion API
+const token  = 'zb1p8LlaSDttz_8TXaEenGYv5UEF8Z6VoenBSzT873EIdec7hvcqvemcwkrTqtvYAqUyodgrviFIDcu7nZ8h3XOJ7OeopEgkdM8Nb-lgtIOEglYVucHb1GTmZWceWXYx';
+const client = yelp.client(token);
+client.search({
+  term:'Coffee',
+  location: 'Boulder'
+})
+.then(response => console.log(response.jsonBody.businesses))
+.catch(e => console.log(e));
+
+// send the yelp data to the client side using a dyanic search query from the input.
+express.get('/search', function(req, res) {
+
+});
+
+
+
 // default port where dev server listens for incoming traffic
 var port = process.env.PORT || config.dev.port
 // automatically open browser, if not set will be false

@@ -53,9 +53,9 @@ export default {
   data() {
     return {
       input: '',
-      city: '',
-      cities: [],
-      results: [],
+      city:  '',
+      cities:    [],
+      results:   [],
       cityItems: [],
       showSearchFilter: false,
       show_modal: false,
@@ -76,13 +76,11 @@ export default {
       this.input   = input;
 
       if ( this.input.length > 2 ) {
-        clearTimeout(window.delay);
-        window.delay = setTimeout(() => {
-          this.results = _.filter(this.cities, obj => {
-            return _.lowerCase(obj.city).includes(_.lowerCase(this.input));
-          })
-        }, 500);
+        this.results = _.filter(this.cities, obj => {
+          return _.lowerCase(obj.city).includes(_.lowerCase(this.input));
+        })
       }
+
     },
     searchFilterClicked() {
       this.showSearchFilter = !this.showSearchFilter;
@@ -92,6 +90,7 @@ export default {
         // append additional results 5 at a time
         const append   = this.results.slice(this.cityItems.length, this.cityItems.length + 5);
         this.cityItems = this.cityItems.concat(append);
+        
         console.log(this.cityItems, this.results);
         return this.cityItems;
       }
