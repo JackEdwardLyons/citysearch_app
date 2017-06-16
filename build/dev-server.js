@@ -5,30 +5,35 @@ if (!process.env.NODE_ENV) {
   process.env.NODE_ENV = JSON.parse(config.dev.env.NODE_ENV)
 }
 
-var opn = require('opn')
-var path = require('path')
-var express = require('express')
-var webpack = require('webpack')
+var opn             = require('opn')
+var path            = require('path')
+var express         = require('express')
+var webpack         = require('webpack')
 var proxyMiddleware = require('http-proxy-middleware')
-var webpackConfig = require('./webpack.dev.conf')
+var webpackConfig   = require('./webpack.dev.conf')
+var querystring     = require('querystring')
+var app             = express();
 
 
+
+/** YELP API CODE 
+ ******************/
 var yelp = require('yelp-fusion'); 
 // Yelp Fusion API
 const token  = 'zb1p8LlaSDttz_8TXaEenGYv5UEF8Z6VoenBSzT873EIdec7hvcqvemcwkrTqtvYAqUyodgrviFIDcu7nZ8h3XOJ7OeopEgkdM8Nb-lgtIOEglYVucHb1GTmZWceWXYx';
 const client = yelp.client(token);
-client.search({
-  term:'Coffee',
-  location: 'Boulder'
-})
-.then(response => console.log(response.jsonBody.businesses))
-.catch(e => console.log(e));
 
-// send the yelp data to the client side using a dyanic search query from the input.
-express.get('/search', function(req, res) {
+// send the yelp data to the client side using a dynamic search query from the input?
+app.get('/search:query', function(req, res) {
+  console.log(req.params.query);
 
+  client.search({
+    term: 'coffee',
+    location: queryString.stringify({ q: req.params.query});
+  })
+  .then(response => res.jsonBody.businesses)
+  .catch(e => console.log(e));
 });
-
 
 
 // default port where dev server listens for incoming traffic

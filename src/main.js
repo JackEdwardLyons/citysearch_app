@@ -4,7 +4,8 @@ import Vue           from 'vue'
 import axios         from 'axios'
 import scrollMonitor from 'scrollMonitor'
 import App           from './App'
-
+import VueResource   from 'vue-resource'
+Vue.use(VueResource);
  
 Vue.config.productionTip = false
 const bus = new Vue();
@@ -16,14 +17,14 @@ Object.defineProperty(Vue.prototype, '$bus', {
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
-  template: '<App :bus="bus"></App>',
+  template: '<App></App>',
   components: { App },
   data: { bus },
   methods: {},
   mounted() {
-    const elem  = document.getElementById('results-bottom');
-    let watcher = scrollMonitor.create(elem);
-    // watcher.enterViewport();
+    // const elem  = document.getElementById('results-bottom');
+    // let watcher = scrollMonitor.create(elem);
+    // // watcher.enterViewport();
   }
 });
 

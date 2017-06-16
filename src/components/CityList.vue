@@ -29,8 +29,8 @@
         </div>
 
         <div class="column">
-          <h4>Top 10 Bars in {{ obj.city }}</h4>
-          <a @click="showRestaurants(obj.city)">
+          <h4>Top 10 Cafes in {{ obj.city }}</h4>
+          <a @click="showCafes(obj.city)">
             <img class="city--icon " src="../assets/beer.png">
           </a>
         </div>
@@ -63,10 +63,20 @@ export default {
     addResults() {
       this.$emit('addResults');
     },
-		showRestaurants(city) {
-			this.city = city;
+		showCafes(city = this.city) {
 			this.modal_type = 'restaurants';
 			this.show_modal = true;
+      
+      city = city.replace(' ', '+');
+      console.log(city);
+      if (city.length) {
+        // ajax get request with vue-resource
+        this.$http.get(`/search/${city}`)
+          .then((res) => {
+            this.cafes = res.data;
+            console.log(this.cafes);
+          });
+      }
 		},
     showMore() {
       return this.cityItems.length < this.results.length && this.cityItems.length;

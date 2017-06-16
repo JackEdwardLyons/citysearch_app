@@ -18,7 +18,11 @@
         </div>
       </div>
       
-      <CityList @addResults="addResults" :results="results" @showMap="showMap" :cityItems="cityItems"></CityList>
+      <CityList @addResults="addResults" 
+                      :results="results" 
+                      @showMap="showMap" 
+                  :cityItems="cityItems">
+      </CityList>
 
       <Modal v-if="show_modal" 
               :city="city"
@@ -56,6 +60,7 @@ export default {
       city:  '',
       cities:    [],
       results:   [],
+      cafes:     [],
       cityItems: [],
       showSearchFilter: false,
       show_modal: false,
@@ -82,9 +87,6 @@ export default {
       }
 
     },
-    searchFilterClicked() {
-      this.showSearchFilter = !this.showSearchFilter;
-    },
     addResults() {
       if (this.cityItems.length < this.results.length) {
         // append additional results 5 at a time
@@ -93,6 +95,16 @@ export default {
         
         console.log(this.cityItems, this.results);
         return this.cityItems;
+      }
+    },
+    getCafes() {
+      if (this.city.length) {
+        // ajax get request with vue-resource
+        this.$http.get(`/search/${this.city}`)
+          .then((res) => {
+            this.cafes = res.data;
+            console.log(this.cafes);
+          });
       }
     },
     showMap(city) {
@@ -111,7 +123,10 @@ export default {
     },
     closeModal() {
       this.show_modal = false;
-    }
+    },
+    searchFilterClicked() {
+      this.showSearchFilter = !this.showSearchFilter;
+    },
   },
   created() {
     this.getCities();
