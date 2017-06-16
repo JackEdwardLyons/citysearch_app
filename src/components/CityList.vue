@@ -51,6 +51,8 @@
   </section>
 </template>
 <script> 
+import axios from 'axios';
+
 export default {
 	props: [ 'results', 'input', 'city', 'cityItems' ],
   data() {
@@ -64,18 +66,16 @@ export default {
       this.$emit('addResults');
     },
 		showCafes(city = this.city) {
-			this.modal_type = 'restaurants';
-			this.show_modal = true;
-      
-      city = city.replace(' ', '+');
-      console.log(city);
+			// this.modal_type = 'restaurants';
+			// this.show_modal = true;
       if (city.length) {
         // ajax get request with vue-resource
-        this.$http.get(`/search/${city}`)
-          .then((res) => {
-            this.cafes = res.data;
-            console.log(this.cafes);
-          });
+        axios.get(`/cafes/${city}`).then(res => {
+          this.cafes = res.data;
+          console.log("cafe data: ", res);
+        }).catch(e => {
+          console.log(e, "error");
+        });
       }
 		},
     showMore() {

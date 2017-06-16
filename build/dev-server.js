@@ -13,8 +13,8 @@ var proxyMiddleware = require('http-proxy-middleware')
 var webpackConfig   = require('./webpack.dev.conf')
 var querystring     = require('querystring')
 var app             = express();
-
-
+var bodyParser      = require('body-parser');
+app.use( bodyParser.json() );
 
 /** YELP API CODE 
  ******************/
@@ -23,16 +23,29 @@ var yelp = require('yelp-fusion');
 const token  = 'zb1p8LlaSDttz_8TXaEenGYv5UEF8Z6VoenBSzT873EIdec7hvcqvemcwkrTqtvYAqUyodgrviFIDcu7nZ8h3XOJ7OeopEgkdM8Nb-lgtIOEglYVucHb1GTmZWceWXYx';
 const client = yelp.client(token);
 
-// send the yelp data to the client side using a dynamic search query from the input?
-app.get('/search:query', function(req, res) {
-  console.log(req.params.query);
+client.search({
+  term: 'coffee',
+  location: 'boulder'
+})
+.then(response => {
+  console.log(response);
+})
+.catch(e => console.log(e));
 
-  client.search({
-    term: 'coffee',
-    location: queryString.stringify({ q: req.params.query});
-  })
-  .then(response => res.jsonBody.businesses)
-  .catch(e => console.log(e));
+
+// send the yelp data to the client side using a dynamic search query from the input?
+app.get('/cafes/:query', function(req, res) {
+  console.log("QUERY: ", req.params.query);
+  
+  // let results = [];
+  // client.search({
+  //   term: 'coffee',
+  //   location: req.params.query 
+  // })
+  // .then(response => {
+     res.send(res.body);
+  // })
+  // .catch(e => console.log(e));
 });
 
 
@@ -44,7 +57,6 @@ var autoOpenBrowser = !!config.dev.autoOpenBrowser
 // https://github.com/chimurai/http-proxy-middleware
 var proxyTable = config.dev.proxyTable
 
-var app = express()
 var compiler = webpack(webpackConfig)
 
 var devMiddleware = require('webpack-dev-middleware')(compiler, {

@@ -97,16 +97,6 @@ export default {
         return this.cityItems;
       }
     },
-    getCafes() {
-      if (this.city.length) {
-        // ajax get request with vue-resource
-        this.$http.get(`/search/${this.city}`)
-          .then((res) => {
-            this.cafes = res.data;
-            console.log(this.cafes);
-          });
-      }
-    },
     showMap(city) {
       this.city = city;
       this.modal_type = 'map';
