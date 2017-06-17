@@ -13,8 +13,8 @@ var proxyMiddleware = require('http-proxy-middleware')
 var webpackConfig   = require('./webpack.dev.conf')
 var querystring     = require('querystring')
 var app             = express();
-var bodyParser      = require('body-parser');
-app.use( bodyParser.json() );
+var bodyParser      = require('body-parser')
+app.use( bodyParser.json() )
 
 
 /** YELP API CODE 
@@ -24,21 +24,19 @@ var yelp = require('yelp-fusion');
 const token  = 'zb1p8LlaSDttz_8TXaEenGYv5UEF8Z6VoenBSzT873EIdec7hvcqvemcwkrTqtvYAqUyodgrviFIDcu7nZ8h3XOJ7OeopEgkdM8Nb-lgtIOEglYVucHb1GTmZWceWXYx';
 const client = yelp.client(token);
 
-// send the yelp data to the client side using a dynamic search query from the input?
 app.get('/cafes/:query', function(req, res) {
-  console.log("Searched City: ", req.params.query );
-
   client.search({
     term: 'coffee',
     location: querystring.stringify({ q: req.params.query })
   })
-  .then(response => {
-     res.send(response);
-  })
+  .then(response => res.send(response))
   .catch(e => console.log(e));
 });
 
 
+
+/* Node Server Settings
+************************/
 // default port where dev server listens for incoming traffic
 var port = process.env.PORT || config.dev.port
 // automatically open browser, if not set will be false

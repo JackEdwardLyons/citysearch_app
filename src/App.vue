@@ -23,8 +23,8 @@
       
       <CityList @addResults="addResults" 
                       :results="results" 
-                      @showMap="showMap" 
-                  :cityItems="cityItems">
+                      @showModal="showModal" 
+                      :cityItems="cityItems">
       </CityList>
 
       <Modal v-if="show_modal" 
@@ -72,13 +72,6 @@ export default {
     }
   },
   methods: {
-    getCities() {
-      const url = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';  
-      axios.get(url)
-      .then(res => {
-        this.cities = res.data;
-      });
-    },
     filteredCities(input) {
       this.results = [];
       this.input   = input;
@@ -100,14 +93,14 @@ export default {
         return this.cityItems;
       }
     },
-    showMap(city) {
+    showModal(city, modal) {
       this.city = city;
-      this.modal_type = 'map';
+      this.modal_type = modal;
       this.show_modal = true;
     },
-    showRestaurants(city) {
+    showCafes(city) {
       this.city = city;
-      this.modal_type = 'restaurants';
+      this.modal_type = 'cafes';
       this.show_modal = true;
     },
     login() {
@@ -120,6 +113,13 @@ export default {
     searchFilterClicked() {
       this.showSearchFilter = !this.showSearchFilter;
     },
+    getCities() {
+      const url = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';  
+      axios.get(url)
+      .then(res => {
+        this.cities = res.data;
+      });
+    }
   },
   created() {
     this.getCities();
@@ -128,3 +128,4 @@ export default {
 </script>
 
 <style src="./assets/style.scss"></style>
+

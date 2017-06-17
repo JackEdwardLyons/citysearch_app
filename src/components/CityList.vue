@@ -30,14 +30,14 @@
 
         <div class="column">
           <h4>Top 10 Cafes in {{ obj.city }}</h4>
-          <a @click="showCafes(obj.city)">
+          <a @click="showModal(obj.city, 'cafes')">
             <img class="city--icon " src="../assets/beer.png">
           </a>
         </div>
 
         <div class="column">
           <h4>Find {{ obj.city }} on a map</h4>
-          <a @click="showMap(obj.city)">
+          <a @click="showModal(obj.city, 'map')">
               <img class="city--icon " src="../assets/map-512.png">
           </a>
         </div>
@@ -59,22 +59,20 @@ export default {
     return {}
   },
 	methods: {
-		showMap(city) {
-			this.$emit('showMap', city);
+		showModal(city, type) {
+			this.$emit('showModal', city, type);
 		},
     addResults() {
       this.$emit('addResults');
     },
 		showCafes(city = this.city) {
-			// this.modal_type = 'restaurants';
-			// this.show_modal = true;
       if (city.length) {
-        // ajax get request with vue-resource
+
         axios.get(`/cafes/${city}`).then(res => {
           this.cafes = res.data.jsonBody.businesses;
           console.log("cafe data: ", this.cafes);
         }).catch(e => {
-          console.log(e, "error");
+          console.log(e);
         });
       }
 		},
