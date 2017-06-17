@@ -71,8 +71,8 @@ export default {
       if (city.length) {
         // ajax get request with vue-resource
         axios.get(`/cafes/${city}`).then(res => {
-          this.cafes = res.data;
-          console.log("cafe data: ", res);
+          this.cafes = res.data.jsonBody.businesses;
+          console.log("cafe data: ", this.cafes);
         }).catch(e => {
           console.log(e, "error");
         });

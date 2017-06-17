@@ -3,7 +3,7 @@
     <input class="input control city-search" type="text" 
            placeholder="City Name"
            v-model="input"
-           @keyup="filteredCities()" >
+           @keyup="filteredCities">
 
     <a class="button is-primary control city-search--btn" @click="addResults">Search</a>
     <a class="button is-success" @click="searchFilterClicked">

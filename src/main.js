@@ -4,9 +4,7 @@ import Vue           from 'vue'
 import axios         from 'axios'
 import scrollMonitor from 'scrollMonitor'
 import App           from './App'
-import VueResource   from 'vue-resource'
-Vue.use(VueResource);
- 
+
 Vue.config.productionTip = false
 const bus = new Vue();
 

@@ -12,7 +12,10 @@
         <div class="column has-text-centered">
           <h2 class="bold">Search a City</h2>
           <div class="searchbar">
-              <SearchBar     @addResults="addResults" @searchFilterClicked="searchFilterClicked" @filteredCities="filteredCities"></SearchBar>
+              <SearchBar     @addResults="addResults" 
+                             @searchFilterClicked="searchFilterClicked" 
+                             @filteredCities="filteredCities">
+              </SearchBar>
               <ResultsFilter :searchFilters="showSearchFilter"></ResultsFilter>
           </div>
         </div>
@@ -85,15 +88,13 @@ export default {
           return _.lowerCase(obj.city).includes(_.lowerCase(this.input));
         })
       }
-
     },
     addResults() {
       if (this.cityItems.length < this.results.length) {
         // append additional results 5 at a time
         const append   = this.results.slice(this.cityItems.length, this.cityItems.length + 5);
         this.cityItems = this.cityItems.concat(append);
-        
-        console.log(this.cityItems, this.results);
+
         return this.cityItems;
       }
     },
