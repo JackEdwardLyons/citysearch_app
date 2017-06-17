@@ -2,17 +2,21 @@
   <!-- Main Vue instance -->
   <div id="app">
   
+    <!-- Navigation
+      ***************-->
     <Navbar :show_mobile_menu="show_mobile_menu" 
             :show_modal="show_modal"
             @login="login">
     </Navbar>
 
+    <!-- Main Container
+      *********************-->
     <main>
       <div class="columns">
         <div class="column has-text-centered">
           <h2 class="bold">Search a City</h2>
           <div class="searchbar">
-              <SearchBar @addResults="addResults" 
+              <SearchBar @showResults="showResults" 
                          @searchFilterClicked="searchFilterClicked" 
                          @filteredCities="filteredCities">
               </SearchBar>
@@ -21,12 +25,16 @@
         </div>
       </div>
       
+      <!-- City List Component
+      *************************-->
       <CityList @addResults="addResults" 
                       :results="results" 
                       @showModal="showModal" 
                       :cityItems="cityItems">
       </CityList>
 
+      <!-- Modal Component
+      **********************-->
       <Modal v-if="show_modal" 
               :city="city"
               :type="modal_type"
@@ -82,8 +90,10 @@ export default {
         })
       }
     },
+    showResults() {
+      return this.cityItems = this.results.slice(0, 5);
+    },
     addResults() {
-      this.cityItems = this.results;
       
       if (this.cityItems.length < this.results.length) {
         // append additional results 5 at a time
@@ -93,14 +103,11 @@ export default {
         return this.cityItems;
       }
     },
-    showModal(city, modal) {
+    showModal(city, type) {
+
+      console.log(city, type);
       this.city = city;
-      this.modal_type = modal;
-      this.show_modal = true;
-    },
-    showCafes(city) {
-      this.city = city;
-      this.modal_type = 'cafes';
+      this.modal_type = type;
       this.show_modal = true;
     },
     login() {

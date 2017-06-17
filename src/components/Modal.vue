@@ -34,7 +34,7 @@
 
 
         <!-- Cafes -->
-        <div class="columns" v-id="type='cafes'">
+        <div class="columns" v-if="type == 'cafes'">
           <h1>Cafes go here</h1>
         </div><!-- end Cafes -->
 
