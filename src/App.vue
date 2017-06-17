@@ -12,9 +12,9 @@
         <div class="column has-text-centered">
           <h2 class="bold">Search a City</h2>
           <div class="searchbar">
-              <SearchBar     @addResults="addResults" 
-                             @searchFilterClicked="searchFilterClicked" 
-                             @filteredCities="filteredCities">
+              <SearchBar @addResults="addResults" 
+                         @searchFilterClicked="searchFilterClicked" 
+                         @filteredCities="filteredCities">
               </SearchBar>
               <ResultsFilter :searchFilters="showSearchFilter"></ResultsFilter>
           </div>
@@ -90,6 +90,8 @@ export default {
       }
     },
     addResults() {
+      this.cityItems = this.results;
+      
       if (this.cityItems.length < this.results.length) {
         // append additional results 5 at a time
         const append   = this.results.slice(this.cityItems.length, this.cityItems.length + 5);
