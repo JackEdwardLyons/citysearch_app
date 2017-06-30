@@ -28,9 +28,9 @@
       <!-- City List Component
       *************************-->
       <CityList @addResults="addResults" 
-                      :results="results" 
-                      @showModal="showModal" 
-                      :cityItems="cityItems">
+                  :results="results" 
+                  @showModal="showModal" 
+                  :cityItems="cityItems">
       </CityList>
 
       <!-- Modal Component
@@ -104,7 +104,6 @@ export default {
       }
     },
     showModal(city, type) {
-
       console.log(city, type);
       this.city = city;
       this.modal_type = type;

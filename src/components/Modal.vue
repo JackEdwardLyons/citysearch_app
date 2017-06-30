@@ -35,7 +35,11 @@
 
         <!-- Cafes -->
         <div class="columns" v-if="type == 'cafes'">
-          <h1>Cafes go here</h1>
+          <Cafes :city="city" 
+                 :type="type" 
+                 :cafes="cafes" 
+                 :loaded="loaded">
+          </Cafes>
         </div><!-- end Cafes -->
 
       </section><!-- end Modal Types -->
@@ -54,12 +58,16 @@
 <script>
 import Login     from './Login'
 import GoogleMap from './GoogleMap'
+import Cafes     from './Cafes'
+
+import axios     from 'axios'
 
 export default {
   props: ['city', 'type'],
   components: { 
     Login, 
-    GoogleMap 
+    GoogleMap,
+    Cafes
   },
   data() {
     return {
@@ -84,16 +92,40 @@ export default {
         self.loaded = true;
       }
     },
+    showCafes(city = this.city) {
+      
+      if (city.length) {
+        axios.get(`/cafes/${city}`).then(res => {
+          this.cafes = res.data.jsonBody.businesses;
+          console.log("cafe data: ", this.cafes);
+          this.loaded = true;
+        }).catch(e => {
+          console.log(e);
+        });
+      }
+
+		},
     login() {
       // handle auth
       console.log(this.user);
     },
     closeModal() {
+      this.loaded = false;
       this.$emit('close_modal');
     }
   },
   mounted() {
-    this.showMap();
+    switch (this.type) {
+      case 'map':
+        this.showMap();
+        break;
+      case 'cafes': 
+        this.showCafes();
+        break;
+      default:
+        console.log('hello');
+        break;
+    }
   }
 }
 </script>

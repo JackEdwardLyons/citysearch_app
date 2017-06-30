@@ -51,8 +51,6 @@
   </section>
 </template>
 <script> 
-import axios from 'axios';
-
 export default {
 	props: [ 'results', 'input', 'city', 'cityItems' ],
   data() {
@@ -65,17 +63,6 @@ export default {
     addResults() {
       this.$emit('addResults');
     },
-		showCafes(city = this.city) {
-      if (city.length) {
-
-        axios.get(`/cafes/${city}`).then(res => {
-          this.cafes = res.data.jsonBody.businesses;
-          console.log("cafe data: ", this.cafes);
-        }).catch(e => {
-          console.log(e);
-        });
-      }
-		},
     showMore() {
       return this.cityItems.length < this.results.length && this.cityItems.length;
     }
