@@ -1,24 +1,29 @@
 <template>
   <div class="cafes">
-  
-    <div v-show="type == 'cafes' ">
+    <div v-show="type == 'cafes'">
       <ul v-for="(cafe, key) in cafes">
         <li>
-          <p>{{ cafe }}</p>
-          <p>{{ cafe.name }}</p>
-          <p>{{ cafe.location["address1"] }}, {{ cafe.location.city }}, {{ cafe.location.zip_code }}</p>
-          <img width="200" :src="cafe.image_url" >
-          <p>Rating: {{ cafe.rating }}</p>
-          <p>Reviews: {{ cafe.review_count }}</p>
-          <p>Price: {{ cafe.price }}</p>
-          <p>Open Now: {{ cafe.isClosed === false ? "NO" : "YES" }}</p>
-          <p><a :href="cafe.url" target="_blank">Link</a></p>
-          <div class="categories">
-            <h4>Cafe Type</h4>
-            <ul v-for="category in cafe.categories">
-              <li>{{ category.alias }}</li>
-            </ul>
-          </div>
+          <article class="media box">
+            <figure class="media-left is-half">
+                <img class="img-responsive" :src="cafe.image_url">
+            </figure>
+            <div class="media-content ">
+              <div class="content">
+                  <p>
+                    <a :href="cafe.url" target="_blank">
+                      <strong>{{ cafe.name }}</strong> 
+                      <small>
+                        {{ cafe.location["address1"] }}, {{ cafe.location.city }}, {{ cafe.location.zip_code }}
+                      </small>
+                    </a>
+                  </p>
+                  <p><strong>Rating:</strong> {{ cafe.rating }}</p>
+                  <p><strong>Reviews:</strong> {{ cafe.review_count }}</p>
+                  <p><strong>Price:</strong> {{ cafe.price }}</p>
+                  <p><strong>Open Now:</strong> {{ cafe.isClosed === false ? "NO" : "YES" }}</p>
+                </div>
+            </div>
+          </article>
         </li>
       </ul>
     </div>
@@ -32,20 +37,13 @@
 </template>
 
 <script>
-
-
 export default {
-  props: [ 'type', 'city', 'cafes', 'loaded' ],
-  computed: {
-    titles: function() {
-      var titles = [];
-      for (var i = 0; i < this.cafes.length; i++) {
-        for (var k = 0; k < this.cafes[i].length; k++) {
-          titles.push(this.cafes[i][k].categories);
-        }
-      }
-      return titles;
-    }
-  }
+  props: [ 'type', 'city', 'cafes', 'loaded' ]
 }
 </script>
+
+<style>
+.border-10 {
+  border-radius: 10%;
+}
+</style>

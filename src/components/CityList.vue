@@ -36,7 +36,7 @@
         </div>
 
         <div class="column">
-          <h4>Find {{ obj.city }} on a map</h4>
+          <h4>Find {{ obj.city }} on Google Maps</h4>
           <a @click="showModal(obj.city, 'map')">
               <img class="city--icon " src="../assets/map-512.png">
           </a>

@@ -11,7 +11,7 @@
         <p class="modal-card-title"
             v-if="type == 'login'">Login</p>
         <p class="modal-card-title"
-            v-if="type == 'cafes'">View Top Cafes in {{ city }}</p>
+            v-if="type == 'cafes'">View the Top 10 Cafes in {{ city }}</p>
         <button class="delete" @click="closeModal"></button>
       </header>
       
@@ -96,8 +96,12 @@ export default {
       
       if (city.length) {
         axios.get(`/cafes/${city}`).then(res => {
-          this.cafes = res.data.jsonBody.businesses;
-          console.log("cafe data: ", this.cafes);
+          this.cafes = res.data.jsonBody
+            .businesses
+            .sort((a, b) => {
+              return b.rating - a.rating; // return highest ranking cafes
+            })
+            .slice(0, 10);
           this.loaded = true;
         }).catch(e => {
           console.log(e);
