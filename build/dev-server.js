@@ -26,7 +26,7 @@ const client = yelp.client(token);
 
 app.get('/cafes/:query', function(req, res) {
   client.search({
-    term: 'coffee',
+    term: 'cafe',
     location: querystring.stringify({ q: req.params.query })
   })
   .then(response => res.send(response))

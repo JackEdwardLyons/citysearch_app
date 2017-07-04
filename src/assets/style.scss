@@ -74,6 +74,14 @@ small,
  * Formatting
  *
  */
+ .m-t-0 {
+   margin-top: 0;
+ }
+
+ .m-1 {
+   margin: 1em 0;
+ }
+
 .site-content {
   flex: 1;
 }
@@ -91,6 +99,12 @@ small,
   width: 100%;
   height: auto;
 }
+
+.img-responsive--fitted {
+  height: 300px;
+  object-fit: scale-down;
+}
+
 
 .footer {
   padding: 1rem;

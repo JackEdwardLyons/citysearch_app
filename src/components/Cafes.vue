@@ -1,26 +1,42 @@
 <template>
-  <div class="cafes">
+  <div class="cafes is-centered ">
     <div v-show="type == 'cafes'">
       <ul v-for="(cafe, key) in cafes">
-        <li>
-          <article class="media box">
-            <figure class="media-left is-half">
-                <img class="img-responsive" :src="cafe.image_url">
+        <li class="m-1">
+          <article class="columns">
+            <figure class="column">
+                <img class="img-responsive--fitted" :src="cafe.image_url">
             </figure>
-            <div class="media-content ">
+            <div class="media-content column">
               <div class="content">
-                  <p>
+                  <h3 class="m-t-0">
                     <a :href="cafe.url" target="_blank">
-                      <strong>{{ cafe.name }}</strong> 
+                      <strong>{{ key + 1 }}. {{ cafe.name }}</strong><br>
                       <small>
                         {{ cafe.location["address1"] }}, {{ cafe.location.city }}, {{ cafe.location.zip_code }}
                       </small>
                     </a>
-                  </p>
-                  <p><strong>Rating:</strong> {{ cafe.rating }}</p>
-                  <p><strong>Reviews:</strong> {{ cafe.review_count }}</p>
-                  <p><strong>Price:</strong> {{ cafe.price }}</p>
-                  <p><strong>Open Now:</strong> {{ cafe.isClosed === false ? "NO" : "YES" }}</p>
+                  </h3>
+                  <table class="table">
+                    <tbody>
+                      <tr>
+                        <th><strong>Reviews</strong></th>
+                        <td>{{ cafe.review_count }}</td>
+                      </tr>
+                      <tr>
+                        <th><strong>Rating</strong></th>
+                        <td>{{ cafe.rating }} / 5</td>
+                      </tr>
+                      <tr>
+                        <th><strong>Price</strong></th>
+                        <td>{{ cafe.price }}</td>
+                      </tr>
+                      <tr>
+                        <th><strong>Open Now</strong></th>
+                        <td>{{ cafe.isClosed === false ? "NO" : "YES" }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
             </div>
           </article>
