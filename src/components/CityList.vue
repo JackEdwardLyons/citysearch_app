@@ -24,8 +24,10 @@
         </div>
 
         <div class="column">
-          <h4>Top 10 Restaurants in {{ obj.city }}</h4>
-          <img class="city--icon " src="../assets/bowl-food-icon.png">
+          <h4>Top Places of Interest in {{ obj.city }}</h4>
+          <a @click="showModal(obj.city, 'city-todos')">
+            <img class="city--icon " src="../assets/bowl-food-icon.png">
+          </a>
         </div>
 
         <div class="column">
@@ -44,7 +46,7 @@
       </div>
     </article>
     
-    <div id="results-bottom" class="is-centered">
+    <div id="results-bottom" class="p-2 is-centered ">
       <a class="button is-primary" @click="addResults" v-show="showMore()">SHOW MORE</a>
     </div>
 

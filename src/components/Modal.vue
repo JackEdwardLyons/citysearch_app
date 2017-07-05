@@ -12,6 +12,8 @@
             v-if="type == 'login'">Login</p>
         <p class="modal-card-title"
             v-if="type == 'cafes'">View the Top 10 Cafes in {{ city }}</p>
+        <p class="modal-card-title"
+            v-if="type == 'restaurants'">View the Top 10 Restaurants in {{ city }}</p>
         <button class="delete" @click="closeModal"></button>
       </header>
       
@@ -42,8 +44,16 @@
           </Cafes>
         </div><!-- end Cafes -->
 
-      </section><!-- end Modal Types -->
+         <!-- Things to do -->
+        <div class="columns" v-if="type == 'city-todos'">
+          <CityTodos :city="city" 
+                 :type="type" 
+                 :cityTodos="cityTodos" 
+                 :loaded="loaded">
+          </CityTodos>
+        </div><!-- end Cafes -->
 
+      </section><!-- end Modal Types -->
 
       <!-- Modal Footer 
       *********************-->
@@ -56,24 +66,31 @@
 </template>
 
 <script>
-import Login     from './Login'
-import GoogleMap from './GoogleMap'
-import Cafes     from './Cafes'
+// components
+import Login       from './Login'
+import GoogleMap   from './GoogleMap'
+import Cafes       from './Cafes'
+import CityTodos   from './CityTodos'
 
-import axios     from 'axios'
+// utils
+import axios        from 'axios'
+import GooglePlaces from 'node-googleplaces'
 
 export default {
   props: ['city', 'type'],
   components: { 
     Login, 
     GoogleMap,
-    Cafes
+    Cafes,
+    CityTodos
   },
   data() {
     return {
       loaded: false,
       mapUrl: '',
       cafes: [],
+      cityTodos: [],
+      cityCoOrds: '',
       user: {
         email: '',
         password: ''
@@ -93,7 +110,6 @@ export default {
       }
     },
     showCafes(city = this.city) {
-      
       if (city.length) {
         axios.get(`/cafes/${city}`).then(res => {
           this.cafes = res.data.jsonBody
@@ -107,8 +123,27 @@ export default {
           console.log(e);
         });
       }
-
 		},
+    showCityTodos(city = this.city) {
+      if (city.length) {
+
+        const KEY = `AIzaSyAUsRiPmw2fmYzfaK6G7W0xxcTzVJxj-kw`;
+        axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${city}&key=${KEY}`)
+          .then(res => {
+            const lat = res.data.results[0].geometry.location.lat,
+                  lng = res.data.results[0].geometry.location.lng;
+            this.cityCoOrds = `${lat},${lng}`;
+            this.loaded = true;
+          })
+          .then(res => {
+            axios.get(`/places/${this.cityCoOrds}`)
+          .then(res => {
+            console.log(res.data.results)
+          })
+          .catch(e => console.log(e))
+        })
+      }
+    },
     login() {
       // handle auth
       console.log(this.user);
@@ -125,6 +160,9 @@ export default {
         break;
       case 'cafes': 
         this.showCafes();
+        break;
+      case 'city-todos':
+        this.showCityTodos();
         break;
       default:
         console.log('hello');

@@ -40,6 +40,7 @@
                 </div>
             </div>
           </article>
+          <hr style="width: 50%; margin: 0 auto; color: lightgrey;">
         </li>
       </ul>
     </div>

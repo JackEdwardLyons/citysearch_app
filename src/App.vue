@@ -14,13 +14,15 @@
     <main>
       <div class="columns">
         <div class="column has-text-centered">
-          <h2 class="bold">Search a City</h2>
-          <div class="searchbar">
-              <SearchBar @showResults="showResults" 
-                         @searchFilterClicked="searchFilterClicked" 
-                         @filteredCities="filteredCities">
-              </SearchBar>
-              <ResultsFilter :searchFilters="showSearchFilter"></ResultsFilter>
+          <div class="search-wrapper">
+            <h2 class="bold">Search a City</h2>
+            <div class="searchbar">
+                <SearchBar @showResults="showResults" 
+                          @searchFilterClicked="searchFilterClicked" 
+                          @filteredCities="filteredCities">
+                </SearchBar>
+                <ResultsFilter :searchFilters="showSearchFilter"></ResultsFilter>
+            </div>
           </div>
         </div>
       </div>
@@ -69,10 +71,11 @@ export default {
     return {
       input: '',
       city:  '',
-      cities:    [],
-      results:   [],
-      cafes:     [],
-      cityItems: [],
+      cities:      [],
+      results:     [],
+      cafes:       [],
+      restaurants: [],
+      cityItems:   [],
       showSearchFilter: false,
       show_modal: false,
       show_mobile_menu: false,

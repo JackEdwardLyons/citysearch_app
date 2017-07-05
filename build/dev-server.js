@@ -5,17 +5,17 @@ if (!process.env.NODE_ENV) {
   process.env.NODE_ENV = JSON.parse(config.dev.env.NODE_ENV)
 }
 
-var opn             = require('opn')
-var path            = require('path')
-var express         = require('express')
-var webpack         = require('webpack')
-var proxyMiddleware = require('http-proxy-middleware')
-var webpackConfig   = require('./webpack.dev.conf')
-var querystring     = require('querystring')
-var app             = express();
-var bodyParser      = require('body-parser')
+var opn                  = require('opn')
+var path                 = require('path')
+var express              = require('express')
+var webpack              = require('webpack')
+var proxyMiddleware      = require('http-proxy-middleware')
+var webpackConfig        = require('./webpack.dev.conf')
+var querystring          = require('querystring')
+var app                  = express();
+var bodyParser           = require('body-parser')
+var GooglePlacesPromises = require('googleplaces-promises')
 app.use( bodyParser.json() )
-
 
 /** YELP API CODE 
  ******************/
@@ -32,6 +32,29 @@ app.get('/cafes/:query', function(req, res) {
   .then(response => res.send(response))
   .catch(e => console.log(e));
 });
+
+
+
+/* Google Places API
+**********************/
+var placesPromises = new GooglePlacesPromises('AIzaSyAUsRiPmw2fmYzfaK6G7W0xxcTzVJxj-kw');
+ 
+app.get('/places/:query', function(req, res) {
+
+  var searchParams = {
+    location: [req.params.query],
+    types: "point_of_interest"
+  }
+  var placeSearch = placesPromises.placeSearch(searchParams);
+  placeSearch
+    .then(function(response) {
+      res.send(response)
+    })
+    .fail(function(error) {
+      console.log(error)
+    })
+})
+
 
 
 
@@ -102,6 +125,7 @@ devMiddleware.waitUntilValid(() => {
   }
   _resolve()
 })
+
 
 var server = app.listen(port)
 
