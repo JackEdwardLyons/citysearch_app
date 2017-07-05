@@ -55,6 +55,13 @@ app.get('/places/:query', function(req, res) {
     })
 })
 
+/* Google Maps Steps
+
+1. get coords of items in array
+2. Install Vue Maps
+3. Create new markers Array with Objects of each items coords
+
+*/
 
 
 

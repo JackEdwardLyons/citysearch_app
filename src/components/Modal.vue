@@ -13,7 +13,7 @@
         <p class="modal-card-title"
             v-if="type == 'cafes'">View the Top 10 Cafes in {{ city }}</p>
         <p class="modal-card-title"
-            v-if="type == 'restaurants'">View the Top 10 Restaurants in {{ city }}</p>
+            v-if="type == 'city-todos'">View the Top Places of Interest in {{ city }}</p>
         <button class="delete" @click="closeModal"></button>
       </header>
       
@@ -138,10 +138,12 @@ export default {
           .then(res => {
             axios.get(`/places/${this.cityCoOrds}`)
           .then(res => {
-            console.log(res.data.results)
+            console.log(res.data.results);
+            this.cityTodos = res.data.results;
           })
           .catch(e => console.log(e))
         })
+
       }
     },
     login() {
