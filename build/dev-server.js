@@ -41,11 +41,11 @@ var placesPromises = new GooglePlacesPromises('AIzaSyAUsRiPmw2fmYzfaK6G7W0xxcTzV
  
 app.get('/places/:query', function(req, res) {
 
-  var searchParams = {
+  var placeSearch = placesPromises.placeSearch({
     location: [req.params.query],
     types: "point_of_interest"
-  }
-  var placeSearch = placesPromises.placeSearch(searchParams);
+  });
+  
   placeSearch
     .then(function(response) {
       res.send(response)

@@ -1,7 +1,7 @@
 <template>
   <div class="modal is-active">
     <div class="modal-background" @click="closeModal"></div>
-    <div class="modal-card" :class="{small: type == 'login'}">
+    <div class="modal-card" :class="type == 'city-todos' && 'large-modal'">
   
       <!-- Modal Header 
       *********************-->
@@ -16,14 +16,13 @@
             v-if="type == 'city-todos'">View the Top Places of Interest in {{ city }}</p>
         <button class="delete" @click="closeModal"></button>
       </header>
-      
 
       <!-- Modal Types 
       *********************-->
       <section class="modal-card-body">
-        
+      
         <!-- Map -->  
-        <div class="map">
+        <div class="map" v-if="type == 'map'">
           <GoogleMap :city="city" :mapUrl="mapUrl"
                      :type="type" :loaded="loaded">
           </GoogleMap>
@@ -33,7 +32,6 @@
         <div class="columns" v-if="type == 'login'">          
           <Login></Login>         
         </div><!-- End Login -->
-
 
         <!-- Cafes -->
         <div class="columns" v-if="type == 'cafes'">
@@ -173,3 +171,9 @@ export default {
   }
 }
 </script>
+
+<style>
+.large-modal {
+  width: 90% !important;
+}
+</style>
