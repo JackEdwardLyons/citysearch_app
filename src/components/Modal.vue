@@ -47,7 +47,9 @@
           <CityTodos :city="city" 
                  :type="type" 
                  :cityTodos="cityTodos" 
-                 :loaded="loaded">
+                 :loaded="loaded"
+                 :cityLat="cityLat"
+                 :cityLng="cityLng">
           </CityTodos>
         </div><!-- end Cafes -->
 
@@ -75,7 +77,7 @@ import axios        from 'axios'
 import GooglePlaces from 'node-googleplaces'
 
 export default {
-  props: ['city', 'type'],
+  props: [ 'city', 'type' ],
   components: { 
     Login, 
     GoogleMap,
@@ -89,6 +91,8 @@ export default {
       cafes: [],
       cityTodos: [],
       cityCoOrds: '',
+      cityLat: '',
+      cityLng: '',
       user: {
         email: '',
         password: ''
@@ -130,18 +134,18 @@ export default {
           .then(res => {
             const lat = res.data.results[0].geometry.location.lat,
                   lng = res.data.results[0].geometry.location.lng;
+            this.cityLat = lat;
+            this.cityLng = lng;
             this.cityCoOrds = `${lat},${lng}`;
             this.loaded = true;
           })
-          .then(res => {
-            axios.get(`/places/${this.cityCoOrds}`)
+          .then(res => axios.get(`/places/${this.cityCoOrds}`)
           .then(res => {
             console.log(res.data.results);
             this.cityTodos = res.data.results;
           })
-          .catch(e => console.log(e))
-        })
-
+          .catch(e => console.log(e)) 
+        )
       }
     },
     login() {

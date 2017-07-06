@@ -2,16 +2,26 @@
   <div class="city-todos">
     <!-- Google Map with Markers -->
     <gmap-map :center="center" :zoom="15" style="width: 100%; height: 500px">
-      <gmap-info-window :options="infoOptions" :position="infoWindowPos" :opened="infoWinOpen" :content="infoContent" @closeclick="infoWinOpen=false"></gmap-info-window>
-      <gmap-marker :key="i" v-for="(m,i) in markers" :position="m.position" :clickable="true" @click="toggleInfoWindow(m,i)"></gmap-marker>
+      <gmap-info-window :options="infoOptions" 
+                        :position="infoWindowPos" 
+                        :opened="infoWinOpen" 
+                        :content="infoContent" 
+                        @closeclick="infoWinOpen=false">
+      </gmap-info-window>
+      <gmap-marker :key="i" v-for="(m,i) in markers" 
+                              :position="m.position" 
+                              :clickable="true" 
+                              @click="toggleInfoWindow(m,i)">
+      </gmap-marker>
     </gmap-map>
 
-    <!--
+    
     <div v-show="type == 'city-todos'">
       <ul>
-        <li v-for="(todo, inx) in cityTodos" style="text-align: left;"><strong>{{ inx + 1 }}: </strong>{{ todo.name }}</li>
+        <li v-for="(todo, inx) in cityTodos" style="text-align: left;">
+          <strong>{{ inx + 1 }}: </strong>{{ todo.geometry.location }}</li>
       </ul>
-    </div> -->
+    </div> 
 
     <div class="modal-card-body--load-wrap has-text-centered"
           v-if="!loaded && type == 'city-todos'" style="text-align: center; margin: 0 auto;">
@@ -23,12 +33,12 @@
 
 <script>
 export default {
-  props: [ 'type', 'city', 'cityTodos', 'loaded' ],
+  props: [ 'type', 'city', 'cityTodos', 'loaded', 'cityLat', 'cityLng' ],
   data() {
     return {
       center: {
-        lat: 47.376332,
-        lng: 8.547511
+        lat: Number(this.cityLat),
+        lng: Number(this.cityLng)
       },
       infoContent: '',
       infoWindowPos: {
@@ -44,30 +54,20 @@ export default {
           height: -35
         }
       },
-      markers: [{
-        position: {
-          lat: 47.376332,
-          lng: 8.547511
-        },
-        infoText: 'Marker 1'
-      }, {
-        position: {
-          lat: 47.374592,
-          lng: 8.548867
-        },
-        infoText: 'Marker 2'
-      }, {
-        position: {
-          lat: 47.379592,
-          lng: 8.549867
-        },
-        infoText: 'Marker 3'
-      }]
+      markers: this.cityTodos.map(item => {
+        return {
+          position: {
+            lat: item.geometry.location.lat,
+            lng: item.geometry.location.lng
+          },
+          infoText: item.name
+        }
+      })
     }
   },
   methods: {
     toggleInfoWindow: function(marker, idx) {
-
+      
       this.infoWindowPos = marker.position;
       this.infoContent = marker.infoText;
 
@@ -82,7 +82,6 @@ export default {
 
       }
     }
-
   }
 }
 </script>
