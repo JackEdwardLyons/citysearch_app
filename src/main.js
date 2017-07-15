@@ -25,12 +25,7 @@ new Vue({
   template: '<App></App>',
   components: { App },
   data: { bus },
-  methods: {},
-  mounted() {
-    // const elem  = document.getElementById('results-bottom');
-    // let watcher = scrollMonitor.create(elem);
-    // // watcher.enterViewport();
-  }
+  methods: {}
 });
 
 

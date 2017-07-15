@@ -24,7 +24,7 @@
         </div>
 
         <div class="column">
-          <h4>Top Places of Interest in {{ obj.city }}</h4>
+          <h4>Top Parks in {{ obj.city }}</h4>
           <a @click="showModal(obj.city, 'city-todos')">
             <img class="city--icon " src="../assets/bowl-food-icon.png">
           </a>

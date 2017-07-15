@@ -1,7 +1,7 @@
 <template>
   <div>
     <input class="input control city-search" type="text" 
-           placeholder="City Name"
+           placeholder="San Francisco"
            v-model="input"
            @keyup="filteredCities">
 

@@ -128,20 +128,20 @@ export default {
 		},
     showCityTodos(city = this.city) {
       if (city.length) {
-
         const KEY = `AIzaSyAUsRiPmw2fmYzfaK6G7W0xxcTzVJxj-kw`;
         axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${city}&key=${KEY}`)
           .then(res => {
             const lat = res.data.results[0].geometry.location.lat,
                   lng = res.data.results[0].geometry.location.lng;
+            
             this.cityLat = lat;
             this.cityLng = lng;
             this.cityCoOrds = `${lat},${lng}`;
+
             this.loaded = true;
           })
           .then(res => axios.get(`/places/${this.cityCoOrds}`)
           .then(res => {
-            console.log(res.data.results);
             this.cityTodos = res.data.results;
           })
           .catch(e => console.log(e)) 

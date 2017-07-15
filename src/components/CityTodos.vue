@@ -1,7 +1,7 @@
 <template>
   <div class="city-todos">
     <!-- Google Map with Markers -->
-    <gmap-map :center="center" :zoom="15" style="width: 100%; height: 500px">
+    <gmap-map :center="center" :zoom="14" style="width: 100%; height: 500px">
       <gmap-info-window :options="infoOptions" 
                         :position="infoWindowPos" 
                         :opened="infoWinOpen" 
@@ -9,9 +9,9 @@
                         @closeclick="infoWinOpen=false">
       </gmap-info-window>
       <gmap-marker :key="i" v-for="(m,i) in markers" 
-                              :position="m.position" 
-                              :clickable="true" 
-                              @click="toggleInfoWindow(m,i)">
+                   :position="m.position" 
+                   :clickable="true" 
+                   @click="toggleInfoWindow(m,i)">
       </gmap-marker>
     </gmap-map>
 
@@ -37,8 +37,8 @@ export default {
   data() {
     return {
       center: {
-        lat: Number(this.cityLat),
-        lng: Number(this.cityLng)
+        lat: this.cityLat,
+        lng: this.cityLng
       },
       infoContent: '',
       infoWindowPos: {
@@ -81,6 +81,25 @@ export default {
         this.currentMidx = idx;
 
       }
+    }
+  },
+  watch: {
+    cityLat: function () {
+      this.center.lat = Number(this.cityLat);
+    },
+    cityLng: function () {
+      this.center.lng = Number(this.cityLng);
+    },
+    cityTodos: function () {
+      this.markers = this.cityTodos.map(item => {
+        return {
+          position: {
+            lat: item.geometry.location.lat,
+            lng: item.geometry.location.lng
+          },
+          infoText: item.name
+        }
+      })
     }
   }
 }

@@ -15,7 +15,7 @@
       <div class="columns">
         <div class="column has-text-centered">
           <div class="search-wrapper">
-            <h2 class="bold">Search a City</h2>
+            <h2 class="bold">Search the USA</h2>
             <div class="searchbar">
                 <SearchBar @showResults="showResults" 
                           @searchFilterClicked="searchFilterClicked" 

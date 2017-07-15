@@ -43,7 +43,7 @@ app.get('/places/:query', function(req, res) {
 
   var placeSearch = placesPromises.placeSearch({
     location: [req.params.query],
-    types: "point_of_interest"
+    types: "park"
   });
   
   placeSearch
