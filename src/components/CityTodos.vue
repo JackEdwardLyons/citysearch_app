@@ -1,7 +1,7 @@
 <template>
   <div class="city-todos">
     <!-- Google Map with Markers -->
-    <gmap-map :center="center" :zoom="14" style="width: 100%; height: 500px">
+    <gmap-map :center="center" :zoom="15" style="width: 100%; height: 500px">
       <gmap-info-window :options="infoOptions" 
                         :position="infoWindowPos" 
                         :opened="infoWinOpen" 

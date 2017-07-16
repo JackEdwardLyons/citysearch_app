@@ -13,7 +13,7 @@
         <p class="modal-card-title"
             v-if="type == 'cafes'">View the Top 10 Cafes in {{ city }}</p>
         <p class="modal-card-title"
-            v-if="type == 'city-todos'">View the Top Places of Interest in {{ city }}</p>
+            v-if="type == 'city-todos'">View the Top Recreation Areas in {{ city }}</p>
         <button class="delete" @click="closeModal"></button>
       </header>
 

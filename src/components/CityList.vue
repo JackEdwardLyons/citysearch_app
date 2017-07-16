@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section v-if="cityItems.length">
     <article class="results" v-for="obj in cityItems">
       <div class="columns" >
         <div class="column">
@@ -24,7 +24,7 @@
         </div>
 
         <div class="column">
-          <h4>Top Parks in {{ obj.city }}</h4>
+          <h4>Top Recreation Areas in {{ obj.city }}</h4>
           <a @click="showModal(obj.city, 'city-todos')">
             <img class="city--icon " src="../assets/bowl-food-icon.png">
           </a>
@@ -50,6 +50,14 @@
       <a class="button is-primary" @click="addResults" v-show="showMore()">SHOW MORE</a>
     </div>
 
+  </section>
+
+  <section v-else-if="!results.length && input !== ''">
+    <article class="results">
+      <h3 class="is-centered">
+        Sorry there are no US cities that match <span class="error-input">{{ input }}</span>.
+      </h3>
+      </article>
   </section>
 </template>
 <script> 

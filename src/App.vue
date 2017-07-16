@@ -32,7 +32,8 @@
       <CityList @addResults="addResults" 
                   :results="results" 
                   @showModal="showModal" 
-                  :cityItems="cityItems">
+                  :cityItems="cityItems"
+                  :input="input">
       </CityList>
 
       <!-- Modal Component
