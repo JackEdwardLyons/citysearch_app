@@ -1,5 +1,6 @@
 <template>
   <section v-if="cityItems.length">
+    
     <article class="results" v-for="obj in cityItems">
       <div class="columns" >
         <div class="column">
@@ -19,8 +20,10 @@
 
       <div class="columns">
         <div class="column">
-          <h4>Top 10 Things to do in {{ obj.city }}</h4>
-          <img class="city--icon " src="../assets/Wallet.png">
+          <h4>Check the weather in {{ obj.city }}</h4>
+          <a @click="showModal(obj.city, 'weather')">
+            <img class="city--icon " src="../assets/Wallet.png">
+          </a>
         </div>
 
         <div class="column">
@@ -44,7 +47,7 @@
           </a>
         </div>
       </div>
-    </article>
+    </article><!-- end cityItems -->
     
     <div id="results-bottom" class="p-2 is-centered ">
       <a class="button is-primary" @click="addResults" v-show="showMore()">SHOW MORE</a>

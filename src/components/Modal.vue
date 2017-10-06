@@ -7,13 +7,20 @@
       *********************-->
       <header class="modal-card-head">
         <p class="modal-card-title"
-            v-if="type == 'map'">View {{ city }} On Map</p>
+            v-if="type == 'map'">View {{ city }} On Map
+        </p>
         <p class="modal-card-title"
-            v-if="type == 'login'">Login</p>
+            v-if="type == 'login'">Login
+        </p>
         <p class="modal-card-title"
-            v-if="type == 'cafes'">View the Top 10 Cafes in {{ city }}</p>
+            v-if="type == 'cafes'">View the Top 10 Cafes in {{ city }}
+        </p>
         <p class="modal-card-title"
-            v-if="type == 'city-todos'">View the Top Recreation Areas in {{ city }}</p>
+            v-if="type == 'city-todos'">View the Top Recreation Areas in {{ city }}
+        </p>
+        <p class="modal-card-title"
+            v-if="type == 'weather'">View the weather in {{ city }}
+        </p>
         <button class="delete" @click="closeModal"></button>
       </header>
 
@@ -42,7 +49,7 @@
           </Cafes>
         </div><!-- end Cafes -->
 
-         <!-- Things to do -->
+        <!-- Things to do -->
         <div class="columns" v-if="type == 'city-todos'">
           <CityTodos :city="city" 
                  :type="type" 
@@ -51,6 +58,16 @@
                  :cityLat="cityLat"
                  :cityLng="cityLng">
           </CityTodos>
+        </div><!-- end Cafes -->
+
+        <!-- Weather -->
+        <div class="columns" v-if="type == 'weather'">
+          <Weather :city="city" 
+                 :type="type" 
+                 :loaded="loaded"
+                 :cityLat="cityLat"
+                 :cityLng="cityLng">
+          </Weather>
         </div><!-- end Cafes -->
 
       </section><!-- end Modal Types -->
@@ -71,6 +88,7 @@ import Login       from './Login'
 import GoogleMap   from './GoogleMap'
 import Cafes       from './Cafes'
 import CityTodos   from './CityTodos'
+import Weather     from './Weather'
 
 // utils
 import axios        from 'axios'
@@ -82,7 +100,8 @@ export default {
     Login, 
     GoogleMap,
     Cafes,
-    CityTodos
+    CityTodos,
+    Weather
   },
   data() {
     return {
@@ -148,6 +167,9 @@ export default {
         )
       }
     },
+    showWeather() {
+      console.log('weather goes here...');
+    },
     login() {
       // handle auth
       console.log(this.user);
@@ -168,6 +190,8 @@ export default {
       case 'city-todos':
         this.showCityTodos();
         break;
+      case 'weather':
+        this.showWeather();
       default:
         console.log('hello');
         break;

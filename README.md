@@ -1,6 +1,8 @@
 # citysearch-app
 
-> A City Search App in Vue.js
+> A City Search App in Vue.js built to help me as I journey across the USA.
+> The app includes a list of 1,000 US cities.
+> Data includes: Google Map and region view, Top 10 cafes, Recreational areas & Things to do.
 
 ## Build Setup
 
