@@ -7,6 +7,7 @@ if (!process.env.NODE_ENV) {
 
 var opn                  = require('opn')
 var path                 = require('path')
+var axios                = require('axios')
 var express              = require('express')
 var webpack              = require('webpack')
 var proxyMiddleware      = require('http-proxy-middleware')
@@ -16,6 +17,12 @@ var app                  = express();
 var bodyParser           = require('body-parser')
 var GooglePlacesPromises = require('googleplaces-promises')
 app.use( bodyParser.json() )
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 /** YELP API CODE 
  ******************/
@@ -62,6 +69,21 @@ app.get('/places/:query', function(req, res) {
 3. Create new markers Array with Objects of each items coords
 
 */
+
+/* DarkSky Weather API */
+
+app.get('/weather/:query', function(req, res) {
+  const WEATHER_KEY = 'acda70057619e2cfc48928eef467d183'
+  let coords = req.params.query
+  axios
+    .get( `https://api.darksky.net/forecast/${WEATHER_KEY}/${coords}` )
+    .then(function(response) {
+      console.log( 'results:', response.data )
+      res.send(response.data)
+    }
+  )
+    
+})
 
 
 

@@ -167,8 +167,27 @@ export default {
         )
       }
     },
-    showWeather() {
-      console.log('weather goes here...');
+    showWeather(city = this.city) {
+      const MAP_KEY     = `AIzaSyAUsRiPmw2fmYzfaK6G7W0xxcTzVJxj-kw`
+      const WEATHER_KEY = 'acda70057619e2cfc48928eef467d183'
+
+        axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${city}&key=${MAP_KEY}`)
+          .then(res => {
+            const lat = res.data.results[0].geometry.location.lat,
+                  lng = res.data.results[0].geometry.location.lng;
+            
+            this.cityLat = lat;
+            this.cityLng = lng;
+            this.cityCoOrds = `${lat},${lng}`;
+            this.loaded = true;
+          })
+          .then(res => axios.get(`/weather/${this.cityCoOrds}`)
+          .then(res => {
+            console.log( res.data )
+          })
+          .catch( e => console.log (e))
+
+        )  
     },
     login() {
       // handle auth
