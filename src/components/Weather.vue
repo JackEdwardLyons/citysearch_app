@@ -86,11 +86,13 @@ export default {
   padding: 20px;
   margin: 1em auto;
   display: flex;
+  border-radius: 8px;
 }
 .weather-display {
   font-size: 3em;
   border: 1px solid black;
   margin-right: 1em;
   padding: 1em;
+  border-radius: 8px;
 }
 </style>
