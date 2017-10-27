@@ -78,7 +78,6 @@ app.get('/weather/:query', function(req, res) {
   axios
     .get( `https://api.darksky.net/forecast/${WEATHER_KEY}/${coords}` )
     .then(function(response) {
-      console.log( 'results:', response.data )
       res.send(response.data)
     }
   )

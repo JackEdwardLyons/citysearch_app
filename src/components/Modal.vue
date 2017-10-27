@@ -66,11 +66,15 @@
                  :type="type" 
                  :loaded="loaded"
                  :cityLat="cityLat"
-                 :cityLng="cityLng">
+                 :cityLng="cityLng"
+                 :cityWeather="cityWeather">
           </Weather>
         </div><!-- end Cafes -->
 
       </section><!-- end Modal Types -->
+
+
+
 
       <!-- Modal Footer 
       *********************-->
@@ -110,6 +114,7 @@ export default {
       cafes: [],
       cityTodos: [],
       cityCoOrds: '',
+      cityWeather: [],
       cityLat: '',
       cityLng: '',
       user: {
@@ -179,11 +184,11 @@ export default {
             this.cityLat = lat;
             this.cityLng = lng;
             this.cityCoOrds = `${lat},${lng}`;
-            this.loaded = true;
           })
           .then(res => axios.get(`/weather/${this.cityCoOrds}`)
           .then(res => {
-            console.log( res.data )
+            this.cityWeather = res.data;
+            this.loaded = true;
           })
           .catch( e => console.log (e))
 

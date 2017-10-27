@@ -11,6 +11,7 @@
     <div class="modal-card-body--load-wrap has-text-centered"
           v-if="!loaded && type == 'map'">
       <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
+      LOADING...
     </div>
   </div>
 </template>
