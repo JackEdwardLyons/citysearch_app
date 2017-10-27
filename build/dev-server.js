@@ -62,16 +62,7 @@ app.get('/places/:query', function(req, res) {
     })
 })
 
-/* Google Maps Steps
-
-1. get coords of items in array
-2. Install Vue Maps
-3. Create new markers Array with Objects of each items coords
-
-*/
-
 /* DarkSky Weather API */
-
 app.get('/weather/:query', function(req, res) {
   const WEATHER_KEY = 'acda70057619e2cfc48928eef467d183'
   let coords = req.params.query
@@ -81,7 +72,6 @@ app.get('/weather/:query', function(req, res) {
       res.send(response.data)
     }
   )
-    
 })
 
 
