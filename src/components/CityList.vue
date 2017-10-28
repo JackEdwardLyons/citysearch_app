@@ -22,7 +22,7 @@
         <div class="column">
           <h4>Check the weather in {{ obj.city }}</h4>
           <a @click="showModal(obj.city, 'weather')">
-            <img class="city--icon " src="../assets/Wallet.png">
+            <img class="city--icon " src="../assets/weather-circle-icon.png">
           </a>
         </div>
 

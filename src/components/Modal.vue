@@ -63,11 +63,11 @@
         <!-- Weather -->
         <div class="columns" v-if="type == 'weather'">
           <Weather :city="city" 
-                 :type="type" 
-                 :loaded="loaded"
-                 :cityLat="cityLat"
-                 :cityLng="cityLng"
-                 :cityWeather="cityWeather">
+                   :type="type" 
+                   :loaded="loaded"
+                   :cityLat="cityLat"
+                   :cityLng="cityLng"
+                   :cityWeather="cityWeather">
           </Weather>
         </div><!-- end Cafes -->
 

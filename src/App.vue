@@ -21,7 +21,7 @@
                           @searchFilterClicked="searchFilterClicked" 
                           @filteredCities="filteredCities">
                 </SearchBar>
-                <ResultsFilter :searchFilters="showSearchFilter"></ResultsFilter>
+                <!-- <ResultsFilter :searchFilters="showSearchFilter"></ResultsFilter> -->
             </div>
           </div>
         </div>

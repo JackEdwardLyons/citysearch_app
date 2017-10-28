@@ -1,35 +1,34 @@
 <template>
   <div class="weather is-centered ">
+    
     <div v-show="type == 'weather' && loaded">
-
+      
       <div class="todays-weather">
-
         <div class="weather-display">
           <div class="weather-display__temp">
-            <WeatherIcon :icon="cityWeather.currently.summary"></WeatherIcon>
-            {{ Math.floor( cityWeather.currently.temperature ) }}°F
+            <WeatherIcon :icon="weatherData.currently.summary"></WeatherIcon>
+            {{ Math.floor( weatherData.currently.temperature ) }}°F
           </div>
         </div>
-
     
         <div class="weather-overview">
           <table class="table is-fullwidth">
             <tbody>
               <tr>
                 <td><strong>Summary:</strong></td>
-                <td>{{ cityWeather.currently.summary }}</td>
+                <td>{{ weatherData.currently.summary }}</td>
               </tr>
               <tr>
                 <td><strong>Wind Speed:</strong></td>
-                <td>{{ cityWeather.currently.windSpeed }}</td>
+                <td>{{ Math.floor( weatherData.currently.windSpeed ) }} mph</td>
               </tr>
               <tr>
                 <td><strong>Humidity:</strong></td>
-                <td>{{ cityWeather.currently.humidity | percentage }}</td>
+                <td>{{ weatherData.currently.humidity | percentage }}</td>
               </tr>
               <tr>
                 <td><strong>Cloud cover:</strong></td>
-                <td>{{ cityWeather.currently.cloudCover | percentage }}</td>
+                <td>{{ weatherData.currently.cloudCover | percentage }}</td>
               </tr>
             </tbody>
           </table>
@@ -55,6 +54,24 @@ export default {
   components: {
     WeatherIcon
   },
+  data() {
+    return {
+      weatherData: []
+    }
+  },
+  methods: {
+    updateWeather() {
+      this.weatherData = this.cityWeather;
+    }
+  },
+  created() {
+    this.updateWeather();
+  },
+  watch: {
+    cityWeather: function() {
+      this.weatherData = this.cityWeather;
+    }
+  },
   filters: {
     percentage(value, decimals) {
       if (!value) value = 0;
@@ -64,13 +81,6 @@ export default {
       return (
         Math.round(value * Math.pow(10, decimals)) / Math.pow(10, decimals) + "%"
       );
-    },
-
-    // weather icons not coming through....
-    watch: {
-      cityWeather: function() {
-        this.cityWeather = this.cityWeather;
-      }
     }
   }
 };
