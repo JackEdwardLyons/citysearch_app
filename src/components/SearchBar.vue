@@ -6,9 +6,9 @@
            @keyup="filteredCities">
 
     <a class="button is-primary control city-search--btn" @click="showResults">Search</a>
-    <a class="button is-success" @click="searchFilterClicked">
+    <!-- <a class="button is-success" @click="searchFilterClicked">
       <i class="fa fa-sliders" aria-hidden="true"></i>
-    </a>
+    </a> -->
   </div>
 </template>
 
