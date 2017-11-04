@@ -10,7 +10,7 @@
             v-if="type == 'map'">View {{ city }} On Map
         </p>
         <p class="modal-card-title"
-            v-if="type == 'login'">Login
+            v-if="type == 'login'">About My Roadtrip App
         </p>
         <p class="modal-card-title"
             v-if="type == 'cafes'">View the Top 10 Cafes in {{ city }}
@@ -73,12 +73,6 @@
 
       </section><!-- end Modal Types -->
 
-      <!-- Modal Footer 
-      *********************-->
-      <footer class="modal-card-foot" v-if="type == 'login'">
-        <a class="button is-success" @click="login">Login</a>
-        <a class="button" @click="closeModal">Cancel</a>
-      </footer>
     </div><!-- end Modal Card -->
   </div><!-- end active Modal -->
 </template>
