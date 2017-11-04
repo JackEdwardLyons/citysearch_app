@@ -2,7 +2,6 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue           from 'vue'
 import axios         from 'axios'
-import scrollMonitor from 'scrollMonitor'
 import App           from './App'
 import * as VueGoogleMaps from 'vue2-google-maps';
 Vue.config.productionTip = false
