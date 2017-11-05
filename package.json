@@ -7,7 +7,8 @@
   "scripts": {
     "dev": "node build/dev-server.js",
     "start": "node server.js",
-    "build": "node build/build.js"
+    "build": "node build/build.js",
+    "postinstall": "npm install express"
   },
   "dependencies": {
     "axios": "^0.16.2",
