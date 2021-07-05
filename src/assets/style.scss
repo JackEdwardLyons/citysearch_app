@@ -4,7 +4,6 @@
  * Author: Jack Lyons
  */
 
-
 /* 
  * Base Styles 
  *
@@ -14,11 +13,13 @@ html {
 }
 
 body {
-  background: url("../assets/michal-pechardo-208341.jpg") no-repeat center center fixed;
+  background: url("../assets/michal-pechardo-208341.jpg") no-repeat center
+    center fixed;
   background-size: cover;
-  font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Tahoma, sans-serif;
+  font-family: "Trebuchet MS", "Lucida Grande", "Lucida Sans Unicode",
+    "Lucida Sans", Tahoma, sans-serif;
   font-weight: 400;
-  
+
   line-height: 1.45;
   color: #333;
   min-height: 100vh;
@@ -73,17 +74,17 @@ small,
  * Formatting
  *
  */
- .m-t-0 {
-   margin-top: 0;
- }
+.m-t-0 {
+  margin-top: 0;
+}
 
- .m-1 {
-   margin: 1em 0;
- }
+.m-1 {
+  margin: 1em 0;
+}
 
- .p-2 {
-   padding: 2em 0;
- }
+.p-2 {
+  padding: 2em 0;
+}
 
 .site-content {
   flex: 1;
@@ -115,7 +116,6 @@ small,
   object-fit: scale-down;
 }
 
-
 .footer {
   padding: 1rem;
   width: 100%;
@@ -135,7 +135,8 @@ small,
   margin: 0 auto;
 }
 
-.results, .results--filter {
+.results,
+.results--filter {
   background: #fff;
   border: 1px solid lightgrey;
   margin: 1em auto;
@@ -160,7 +161,7 @@ small,
 
 .filter-label {
   display: block;
-  margin: .5em 0;
+  margin: 0.5em 0;
 }
 
 .modal-card-body--load-wrap {
@@ -178,14 +179,13 @@ small,
 @media screen and (max-width: 500px) {
   .city-search {
     display: block;
-    margin: .5em auto;
+    margin: 0.5em auto;
     width: 100%;
-  }
-  
-  .city-search--btn, 
-  .searchbar .is-success {
-    width: 100%;
-    margin: .5em auto;
   }
 
+  .city-search--btn,
+  .searchbar .is-success {
+    width: 100%;
+    margin: 0.5em auto;
+  }
 }

@@ -3,18 +3,25 @@
     <div class="container">
       <div class="nav-left">
         <a class="nav-item">
-          <img src="http://bulma.io/images/bulma-logo.png" alt="Bulma logo">
+          <img src="http://bulma.io/images/bulma-logo.png" alt="Bulma logo" />
         </a>
       </div>
-      <span class="nav-toggle" @click="show_mobile_menu = !show_mobile_menu"
-        :class="{'is-active': show_mobile_menu}">
+      <span
+        class="nav-toggle"
+        @click="showMobileMenu = !showMobileMenu"
+        :class="{ 'is-active': showMobileMenu }"
+      >
         <span></span>
         <span></span>
         <span></span>
       </span>
-      <div class="nav-right nav-menu"
-            :class="{'is-active': show_mobile_menu}">
-        <a class="nav-item is-tab" @click="login()">About</a>
+      <div class="nav-right nav-menu" :class="{ 'is-active': showMobileMenu }">
+        <a
+          class="nav-item is-tab"
+          @click="$store.dispatch('modal/showModal', 'login')"
+          v-text="'About'"
+        />
+        >
       </div>
     </div>
   </nav>
@@ -22,16 +29,10 @@
 
 <script>
 export default {
-  props: [ 'show_modal', 'show_mobile_menu' ],
   data() {
     return {
-
-    }
+      showMobileMenu: false,
+    };
   },
-  methods: {
-    login() {
-      this.$emit('login');
-    }
-  }
-}
+};
 </script>
