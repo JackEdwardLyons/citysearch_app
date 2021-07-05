@@ -2,49 +2,61 @@
   <div class="city-todos">
     <!-- Google Map with Markers -->
     <gmap-map :center="center" :zoom="15" style="width: 100%; height: 500px">
-      <gmap-info-window :options="infoOptions" 
-                        :position="infoWindowPos" 
-                        :opened="infoWinOpen" 
-                        :content="infoContent" 
-                        @closeclick="infoWinOpen=false">
+      <gmap-info-window
+        :options="infoOptions"
+        :position="infoWindowPos"
+        :opened="infoWinOpen"
+        :content="infoContent"
+        @closeclick="infoWinOpen = false"
+      >
       </gmap-info-window>
-      <gmap-marker :key="i" v-for="(m,i) in markers" 
-                   :position="m.position" 
-                   :clickable="true" 
-                   @click="toggleInfoWindow(m,i)">
+      <gmap-marker
+        :key="i"
+        v-for="(m, i) in markers"
+        :position="m.position"
+        :clickable="true"
+        @click="toggleInfoWindow(m, i)"
+      >
       </gmap-marker>
     </gmap-map>
 
-    
-    <div v-show="type == 'city-todos'">
+    <div>
       <ul>
-        <li v-for="(todo, inx) in cityTodos" style="text-align: left;">
-          <strong>{{ inx + 1 }}: </strong>{{ todo.geometry.location }}</li>
+        <li v-for="(todo, inx) in cityTodos" :key="`todo__${inx}`">
+          <strong>{{ inx + 1 }}: </strong>{{ todo.geometry.location }}
+        </li>
       </ul>
-    </div> 
+    </div>
 
-    <div class="modal-card-body--load-wrap has-text-centered"
-          v-if="!loaded && type == 'city-todos'" style="text-align: center; margin: 0 auto;">
+    <div
+      class="modal-card-body--load-wrap has-text-centered"
+      v-if="isLoading"
+      style="text-align: center; margin: 0 auto"
+    >
       <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
       LOADING...
     </div>
-
   </div>
 </template>
 
 <script>
+import envs from "../../build/envs";
+import LocationService from "../services/LocationService";
+
 export default {
-  props: [ 'type', 'city', 'cityTodos', 'loaded', 'cityLat', 'cityLng' ],
+  props: ["city"],
   data() {
     return {
+      cityTodos: [],
+      status: "idle",
       center: {
         lat: this.cityLat,
-        lng: this.cityLng
+        lng: this.cityLng,
       },
-      infoContent: '',
+      infoContent: "",
       infoWindowPos: {
         lat: 0,
-        lng: 0
+        lng: 0,
       },
       infoWinOpen: false,
       currentMidx: null,
@@ -52,58 +64,66 @@ export default {
       infoOptions: {
         pixelOffset: {
           width: 0,
-          height: -35
-        }
+          height: -35,
+        },
       },
-      markers: this.cityTodos.map(item => {
+    };
+  },
+  computed: {
+    isLoading() {
+      return this.status === "loading";
+    },
+    markers() {
+      return this.cityTodos.map((item) => {
         return {
           position: {
             lat: item.geometry.location.lat,
-            lng: item.geometry.location.lng
+            lng: item.geometry.location.lng,
           },
-          infoText: item.name
-        }
-      })
-    }
+          infoText: item.name,
+        };
+      });
+    },
   },
   methods: {
-    toggleInfoWindow: function(marker, idx) {
-      
+    toggleInfoWindow: function (marker, idx) {
       this.infoWindowPos = marker.position;
       this.infoContent = marker.infoText;
 
-      //check if its the same marker that was selected if yes toggle
+      // check if its the same marker that was selected if yes toggle
       if (this.currentMidx == idx) {
         this.infoWinOpen = !this.infoWinOpen;
       }
-      //if different marker set infowindow to open and reset current marker index
+      // if different marker set infowindow to open and reset current marker index
       else {
         this.infoWinOpen = true;
         this.currentMidx = idx;
-
       }
-    }
+    },
+
+    async showCityTodos() {
+      this.status = "loading";
+
+      try {
+        const { lat, lng } = await LocationService.getCoordinates(this.city);
+
+        console.log({ lat, lng });
+
+        this.center.lat = Number(lat);
+        this.center.lng = Number(lng);
+        this.cityCoOrds = `${lat},${lng}`;
+
+        const cityTodos = await LocationService.getPlaces(this.cityCoOrds);
+        this.cityTodos = cityTodos;
+      } catch (error) {
+        console.log({ error });
+      }
+    },
+    mounted() {
+      this.showCityTodos();
+    },
   },
-  watch: {
-    cityLat: function () {
-      this.center.lat = Number(this.cityLat);
-    },
-    cityLng: function () {
-      this.center.lng = Number(this.cityLng);
-    },
-    cityTodos: function () {
-      this.markers = this.cityTodos.map(item => {
-        return {
-          position: {
-            lat: item.geometry.location.lat,
-            lng: item.geometry.location.lng
-          },
-          infoText: item.name
-        }
-      })
-    }
-  }
-}
+};
 </script>
 
 <style>

@@ -25,13 +25,7 @@
 
       <!-- Modal Component
       **********************-->
-      <Modal
-        v-if="showModal"
-        :city="selectedCity"
-        :type="modalType"
-        @close_modal="closeModal"
-      >
-      </Modal>
+      <Modal v-if="showModal" :city="selectedCity" />
     </main>
   </div>
 </template>
@@ -44,7 +38,7 @@ import axios from "axios";
 import Navbar from "./components/Navbar";
 import ResultsFilter from "./components/ResultsFilter";
 import SearchBar from "./components/SearchBar";
-import Modal from "./components/Modal.vue";
+import Modal from "./components/modal/Modal";
 import CityList from "./components/CityList";
 import { mapState } from "vuex";
 
@@ -76,10 +70,6 @@ export default {
     }),
   },
   methods: {
-    closeModal() {
-      this.$store.dispatch("modal/hideModal");
-    },
-
     getCities() {
       const url =
         "https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json";
