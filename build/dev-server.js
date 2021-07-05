@@ -1,4 +1,5 @@
 require("./check-versions")();
+var envs = require("./envs");
 
 var config = require("../config");
 if (!process.env.NODE_ENV) {
@@ -31,8 +32,7 @@ app.use(function (req, res, next) {
  ******************/
 var yelp = require("yelp-fusion");
 // Yelp Fusion API
-const token =
-  "zb1p8LlaSDttz_8TXaEenGYv5UEF8Z6VoenBSzT873EIdec7hvcqvemcwkrTqtvYAqUyodgrviFIDcu7nZ8h3XOJ7OeopEgkdM8Nb-lgtIOEglYVucHb1GTmZWceWXYx";
+const token = envs.YELP_TOKEN;
 const client = yelp.client(token);
 
 app.get("/cafes/:query", function (req, res) {
@@ -47,9 +47,7 @@ app.get("/cafes/:query", function (req, res) {
 
 /* Google Places API
  **********************/
-var placesPromises = new GooglePlacesPromises(
-  "AIzaSyAUsRiPmw2fmYzfaK6G7W0xxcTzVJxj-kw"
-);
+var placesPromises = new GooglePlacesPromises(envs.GOOGLE_PLACES_TOKEN);
 
 app.get("/places/:query", function (req, res) {
   var placeSearch = placesPromises.placeSearch({
@@ -68,10 +66,9 @@ app.get("/places/:query", function (req, res) {
 
 /* DarkSky Weather API */
 app.get("/weather/:query", function (req, res) {
-  const WEATHER_KEY = "acda70057619e2cfc48928eef467d183";
   let coords = req.params.query;
   axios
-    .get(`https://api.darksky.net/forecast/${WEATHER_KEY}/${coords}`)
+    .get(`https://api.darksky.net/forecast/${envs.WEATHER_TOKEN}/${coords}`)
     .then(function (response) {
       res.send(response.data);
     });
