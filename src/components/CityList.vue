@@ -1,6 +1,11 @@
 <template>
   <section v-if="filteredCities.length">
-    <article class="results" v-for="obj in filteredCities" :key="obj.rank">
+    <p class="is-centered">{{ filteredCities.length }} results</p>
+    <article
+      class="results"
+      v-for="obj in filteredCitiesWithLimit"
+      :key="obj.rank"
+    >
       <div class="columns">
         <div class="column">
           <div class="city--stats">
@@ -56,7 +61,7 @@
       <a
         class="button is-primary"
         @click="addResults"
-        v-show="showMore()"
+        v-show="moreCitiesThanLimit"
         v-text="'SHOW MORE'"
       />
     </div>
@@ -73,18 +78,18 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapGetters } from "vuex";
 
 export default {
-  data() {
-    return {};
-  },
   computed: {
     ...mapState("city", {
       input: (state) => state.input,
       filteredCities: (state) => state.filteredCities,
       cities: (state) => state.cities,
+      page: (state) => state.page,
+      maxCitiesToShow: (state) => state.maxCitiesToShow,
     }),
+    ...mapGetters("city", ["filteredCitiesWithLimit", "moreCitiesThanLimit"]),
   },
   methods: {
     async showModal(city, type) {
@@ -92,19 +97,9 @@ export default {
       await this.$store.dispatch("modal/showModal", type);
     },
     addResults() {
-      if (this.cities.length < this.filteredCities.length) {
-        // append additional results 5 at a time
-        const append = [...this.filteredCities].slice(
-          this.cities.length,
-          this.cities.length + 5
-        );
-
-        this.$store.dispatch("city/updateCities", this.cities.concat(append));
-      }
-    },
-    showMore() {
-      return (
-        this.cities.length < this.filteredCities.length && this.cities.length
+      this.$store.dispatch(
+        "city/updatePaginationPage",
+        this.page + this.maxCitiesToShow
       );
     },
   },

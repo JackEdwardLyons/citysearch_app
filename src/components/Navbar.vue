@@ -21,7 +21,6 @@
           @click="$store.dispatch('modal/showModal', 'login')"
           v-text="'About'"
         />
-        >
       </div>
     </div>
   </nav>
